@@ -7,6 +7,8 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const flash = require('express-flash')
 const app = express();
+require('dotenv').config()
+const mongoose = require('mongoose');
 
 
 app.set("view engine","ejs")
@@ -15,8 +17,17 @@ console.log(app.get("view engine"))
 
 
 
-const {connectMonggose} = require('./app/database/db')
-connectMonggose();
+connectMongoose = async () => {
+    try{
+        let conn = await mongoose.connect(process.env.MONGODB_URL);
+        console.log("MongoDB Connected")
+    }
+    catch(err){
+        console.log(err);
+    }
+     
+}
+connectMongoose();
 
 
 
